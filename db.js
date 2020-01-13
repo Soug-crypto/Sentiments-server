@@ -67,6 +67,12 @@ const SentimentSchema = new mongoose.Schema({
 
 const wordChoice = mongoose.model('wordChoice', SentimentSchema);
 
+var find = (id) => {
+  return wordChoice.findOne({id})
+}
+
+
+
 var update = (id, scoresArray) => {
   let obj = {};
 
@@ -82,9 +88,7 @@ var update = (id, scoresArray) => {
       upsert: true,
       new: true
     })
-    .then((data) => {
-      console.log(data)
-    }).catch((err) => {
+    .catch((err) => {
       console.log(err)
     })
 }
@@ -115,4 +119,5 @@ var getStatus = (id) => {
 }
 
 module.exports.update = update;
-module.exports.getStatus = getStatus
+module.exports.getStatus = getStatus;
+module.exports.find = find;
